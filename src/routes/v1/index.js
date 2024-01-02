@@ -1,6 +1,9 @@
 const express = require("express");
 const UserController = require("../../controllers/user-controller");
-const { AuthRequestValidator } = require("../../middlewares/index");
+const {
+  AuthRequestValidator,
+  ValidateIsAdminRequest,
+} = require("../../middlewares/index");
 const router = express.Router();
 
 router.post(
@@ -14,4 +17,9 @@ router.post(
   UserController.signIn
 );
 router.get("/isAuthenticated", UserController.isAuthenticated);
+router.get(
+  "/isAdmin",
+  ValidateIsAdminRequest.validateIsAdminRequest,
+  UserController.isAdmin
+);
 module.exports = router;
